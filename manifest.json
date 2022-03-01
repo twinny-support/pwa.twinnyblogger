@@ -1,26 +1,30 @@
 {
-  "name": "Twinny Blogger Lite",
-  "short_name": "TW Lite",
-  "icons": [{
-    "src": "/img/icons/favicon-128.png",
-    "sizes": "128x128",
-    "type": "image/png"
-  }, {
-    "src": "/img/icons/apple-touch-icon-144x144.png",
-    "sizes": "144x144",
-    "type": "image/png"
-  }, {
-    "src": "/img/icons/apple-touch-icon-152x152.png",
-    "sizes": "152x152",
-    "type": "image/png"
-  }, {
-    "src": "/img/icons/icon-512.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }],
-  "start_url": "https://twinnyblogger.blogspot.com/",
-  "display": "standalone",
-  "orientation" : "portrait",
-  "background_color": "#0069c0",
-  "theme_color": "#0069c0"
+  // Name of the app and short name in case there isn't enough space
+  "name": "Twinny Blogger ",
+  "short_name": "Twinny Lite",
+  // Description what your app is
+  "description": "Twinny Blogger Lite",
+ 
+  // Scope and start URL - these need to change to yours
+  "scope": "/github-page-pwa/",
+  "start_url": "https://twinnyblogger.blogspot.com",
+ 
+  // colours of the app as displayed in the installer
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+ 
+  // Display of the app. 
+  //This could be "standalone", "fullscreen", "minimal-ui" or "browser"
+  "display": "standalone", 
+ 
+  // The possible icons to display. Make sure to change the src URL,
+  // the type and the size to your needs. If the size isn't correct, 
+  // you may not be able to install the app. 
+  "icons": [
+      {
+        "src": "/pwa.twinnyblogger/icon.png",
+        "type": "image/png",
+        "sizes": "700x700"
+      }
+  ]
 }
