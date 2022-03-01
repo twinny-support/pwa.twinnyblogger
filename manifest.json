@@ -6,7 +6,7 @@
   "description": "Twinny Blogger Lite",
  
   // Scope and start URL - these need to change to yours
-  "scope": "/github-page-pwa/",
+  "scope": "/pwa.twinnyblogger/",
   "start_url": "https://twinnyblogger.blogspot.com",
  
   // colours of the app as displayed in the installer
@@ -22,7 +22,7 @@
   // you may not be able to install the app. 
   "icons": [
       {
-        "src": "/pwa.twinnyblogger/icon.png",
+        "src": "/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
         "type": "image/png",
         "sizes": "700x700"
       }
