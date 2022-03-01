@@ -1,43 +1,309 @@
-//This is the "Offline copy of pages" service worker
+const CACHE_VERSION = 1;
 
-//Install stage sets up the index page (home page) in the cache and opens a new cache
-self.addEventListener('install', function(event) {
-  var indexPage = new Request('index.html');
-  event.waitUntil(
-    fetch(indexPage).then(function(response) {
-      return caches.open('pwabuilder-offline').then(function(cache) {
-        console.log('[PWA Builder] Cached index page during Install'+ response.url);
-        return cache.put(indexPage, response);
-      });
-  }));
-});
+const BASE_CACHE_FILES = [
+    '/manifest.json',
+    '/css/bootstrap.min.css',
+    '/css/style.css',
+    '/js/jquery-3.2.1.slim.min.js',
+    '/js/popper.min.js',
+    '/js/bootstrap.min.js',
+    '/img/logo.png',
+    '/img/favicon.png',
+];
 
-//If any fetch fails, it will look for the request in the cache and serve it from there first
-self.addEventListener('fetch', function(event) {
-  var updateCache = function(request){
-    return caches.open('pwabuilder-offline').then(function (cache) {
-      return fetch(request).then(function (response) {
-        console.log('[PWA Builder] add page to offline'+response.url)
-        return cache.put(request, response);
-      });
-    });
-  };
+const OFFLINE_CACHE_FILES = [
+    '/css/bootstrap.min.css',
+    '/css/style.css',
+    '/js/jquery-3.2.1.slim.min.js',
+    '/js/popper.min.js',
+    '/js/bootstrap.min.js',
+    '/img/logo.png',
+    '/img/favicon.png',
+];
 
-  event.waitUntil(updateCache(event.request));
+const NOT_FOUND_CACHE_FILES = [
+    
+    '/404.html',
+];
 
-  event.respondWith(
-    fetch(event.request).catch(function(error) {
-      console.log( '[PWA Builder] Network request Failed. Serving content from cache: ' + error );
+const OFFLINE_PAGE = '/offline/index.html';
+const NOT_FOUND_PAGE = '/404.html';
 
-      //Check to see if you have it in the cache
-      //Return response
-      //If not in the cache, then return error page
-      return caches.open('pwabuilder-offline').then(function (cache) {
-        return cache.match(event.request).then(function (matching) {
-          var report =  !matching || matching.status == 404?Promise.reject('no-match'): matching;
-          return report
-        });
-      });
-    })
-  );
-})
+const CACHE_VERSIONS = {
+    assets: 'assets-v' + CACHE_VERSION,
+    content: 'content-v' + CACHE_VERSION,
+    offline: 'offline-v' + CACHE_VERSION,
+    notFound: '404-v' + CACHE_VERSION,
+};
+
+const MAX_TTL = {
+    '/': 3600,
+    html: 3600,
+    json: 86400,
+    js: 86400,
+    css: 86400,
+};
+
+const SUPPORTED_METHODS = [
+    'GET',
+];
+
+function isBlacklisted(url) {
+    return (CACHE_BLACKLIST.length > 0) ? !CACHE_BLACKLIST.filter((rule) => {
+        if(typeof rule === 'function') {
+            return !rule(url);
+        } else {
+            return false;
+        }
+    }).length : false
+}
+
+function getFileExtension(url) {
+    let extension = url.split('.').reverse()[0].split('?')[0];
+    return (extension.endsWith('/')) ? '/' : extension;
+}
+
+function getTTL(url) {
+    if (typeof url === 'string') {
+        let extension = getFileExtension(url);
+        if (typeof MAX_TTL[extension] === 'number') {
+            return MAX_TTL[extension];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
+function installServiceWorker() {
+    return Promise.all(
+        [
+            caches.open(CACHE_VERSIONS.assets)
+                .then(
+                    (cache) => {
+                        return cache.addAll(BASE_CACHE_FILES);
+                    }
+                ),
+            caches.open(CACHE_VERSIONS.offline)
+                .then(
+                    (cache) => {
+                        return cache.addAll(OFFLINE_CACHE_FILES);
+                    }
+                ),
+            caches.open(CACHE_VERSIONS.notFound)
+                .then(
+                    (cache) => {
+                        return cache.addAll(NOT_FOUND_CACHE_FILES);
+                    }
+                )
+        ]
+    );
+}
+
+function cleanupLegacyCache() {
+
+    let currentCaches = Object.keys(CACHE_VERSIONS)
+        .map(
+            (key) => {
+                return CACHE_VERSIONS[key];
+            }
+        );
+
+    return new Promise(
+        (resolve, reject) => {
+
+            caches.keys()
+                .then(
+                    (keys) => {
+                        return legacyKeys = keys.filter(
+                            (key) => {
+                                return !~currentCaches.indexOf(key);
+                            }
+                        );
+                    }
+                )
+                .then(
+                    (legacy) => {
+                        if (legacy.length) {
+                            Promise.all(
+                                legacy.map(
+                                    (legacyKey) => {
+                                        return caches.delete(legacyKey)
+                                    }
+                                )
+                            )
+                                .then(
+                                    () => {
+                                        resolve()
+                                    }
+                                )
+                                .catch(
+                                    (err) => {
+                                        reject(err);
+                                    }
+                                );
+                        } else {
+                            resolve();
+                        }
+                    }
+                )
+                .catch(
+                    () => {
+                        reject();
+                    }
+                );
+
+        }
+    );
+}
+
+
+self.addEventListener(
+    'install', event => {
+        event.waitUntil(installServiceWorker());
+    }
+);
+
+// The activate handler takes care of cleaning up old caches.
+self.addEventListener(
+    'activate', event => {
+        event.waitUntil(
+            Promise.all(
+                [
+                    cleanupLegacyCache(),
+                ]
+            )
+                .catch(
+                    (err) => {
+                        event.skipWaiting();
+                    }
+                )
+        );
+    }
+);
+
+self.addEventListener(
+    'fetch', event => {
+
+        event.respondWith(
+            caches.open(CACHE_VERSIONS.content)
+                .then(
+                    (cache) => {
+
+                        return cache.match(event.request)
+                            .then(
+                                (response) => {
+
+                                    if (response) {
+
+                                        let headers = response.headers.entries();
+                                        let date = null;
+
+                                        for (let pair of headers) {
+                                            if (pair[0] === 'date') {
+                                                date = new Date(pair[1]);
+                                            }
+                                        }
+
+                                        if (date) {
+                                            let age = parseInt((new Date().getTime() - date.getTime()) / 1000);
+                                            let ttl = getTTL(event.request.url);
+
+                                            if (ttl && age > ttl) {
+
+                                                return new Promise(
+                                                    (resolve) => {
+
+                                                        return fetch(event.request)
+                                                            .then(
+                                                                (updatedResponse) => {
+                                                                    if (updatedResponse) {
+                                                                        cache.put(event.request, updatedResponse.clone());
+                                                                        resolve(updatedResponse);
+                                                                    } else {
+                                                                        resolve(response)
+                                                                    }
+                                                                }
+                                                            )
+                                                            .catch(
+                                                                () => {
+                                                                    resolve(response);
+                                                                }
+                                                            );
+
+                                                    }
+                                                )
+                                                    .catch(
+                                                        (err) => {
+                                                            return response;
+                                                        }
+                                                    );
+                                            } else {
+                                                return response;
+                                            }
+
+                                        } else {
+                                            return response;
+                                        }
+
+                                    } else {
+                                        return null;
+                                    }
+                                }
+                            )
+                            .then(
+                                (response) => {
+                                    if (response) {
+                                        return response;
+                                    } else {
+                                        return fetch(event.request) 
+                                            .then(
+                                                (response) => {
+
+                                                    if(response.status < 400) {
+                                                        if (~SUPPORTED_METHODS.indexOf(event.request.method) && !isBlacklisted(event.request.url)) {
+                                                            cache.put(event.request, response.clone());
+                                                        }
+                                                        return response;
+                                                    } 
+                                                    else {
+                                                        return caches.open(CACHE_VERSIONS.notFound).then((cache) => {
+                                                            return cache.match(NOT_FOUND_PAGE);
+                                                        })
+                                                    }
+                                                }
+                                            )
+                                            .then((response) => {
+                                                if(response) {
+                                                    return response;
+                                                }
+                                            })
+                                            .catch(
+                                                () => {
+
+                                                    return caches.open(CACHE_VERSIONS.offline)
+                                                        .then(
+                                                            (offlineCache) => {
+                                                                return offlineCache.match(OFFLINE_PAGE)
+                                                            }
+                                                        )
+
+                                                }
+                                            )
+                                        
+                                    }
+                                }
+                            )
+                            .catch(
+                                (error) => {
+                                    console.error('  Error in fetch handler:', error);
+                                    throw error;
+                                }
+                            );
+                    }
+                )
+        );
+
+    }
+);
