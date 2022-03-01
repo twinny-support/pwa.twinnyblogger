@@ -10,7 +10,7 @@ workbox.core.setCacheNameDetails({
   runtime: 'run-time'
 });
 
-const FALLBACK_HTML_URL = '/offline.html';
+const FALLBACK_HTML_URL = '/p/offline.html';
 const version = workbox.core.cacheNames.suffix;
 workbox.precaching.precacheAndRoute([{url: FALLBACK_HTML_URL, revision: null},{url: '/manifest.json', revision: null},{url: '/favicon.ico', revision: null}]);
 
