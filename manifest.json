@@ -1,30 +1,39 @@
 {
-  // Name of the app and short name in case there isn't enough space
-  "name": "Twinny Blogger ",
+  "name": "Twinny Blogger Lite",
   "short_name": "Twinny Lite",
-  // Description what your app is
-  "description": "Twinny Blogger Lite",
- 
-  // Scope and start URL - these need to change to yours
-  "scope": "/pwa.twinnyblogger/",
-  "start_url": "https://twinnyblogger.blogspot.com",
- 
-  // colours of the app as displayed in the installer
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
- 
-  // Display of the app. 
-  //This could be "standalone", "fullscreen", "minimal-ui" or "browser"
-  "display": "standalone", 
- 
-  // The possible icons to display. Make sure to change the src URL,
-  // the type and the size to your needs. If the size isn't correct, 
-  // you may not be able to install the app. 
-  "icons": [
-      {
-        "src": "/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-        "type": "image/png",
-        "sizes": "700x700"
-      }
-  ]
+  "scope": "https://twinnyblogger.blogspot.com/",
+  "start_url": "https://twinnyblogger.blogspot.com/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#2B0C93",
+  "description": "Selamat Datang di Twinny Blogger - Jasa Pembuatan Toko Online Blogger",
+  "icons": [{
+    "src": "https://twinny-support.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+    "sizes": "48x48",
+    "type": "image/png"
+  }, {
+    "src": "https://twinny-support.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+    "sizes": "72x72",
+    "type": "image/png"
+  }, {
+    "src": "https://twinny-support.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+    "sizes": "96x96",
+    "type": "image/png"
+  }, {
+    "src": "https://twinny-support.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }, {
+    "src": "https://twinny-support.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+    "sizes": "168x168",
+    "type": "image/png"
+  }, {
+    "src": "https://twinny-support.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }, {
+    "src": "https://twinny-support.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
 }
