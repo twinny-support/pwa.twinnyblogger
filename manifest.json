@@ -1,8 +1,8 @@
 {
   "name": "Twinny Blogger Lite",
   "short_name": "Twinny Lite",
-  "scope": "https://twinnyblogger.blogspot.com/",
-  "start_url": "https://twinnyblogger.blogspot.com/",
+  "scope": "https://tokkoblogger.blogspot.com/",
+  "start_url": "https://tokkoblogger.blogspot.com/",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#2B0C93",
