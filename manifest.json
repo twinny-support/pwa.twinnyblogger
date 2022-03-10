@@ -1,39 +1,76 @@
-{
-  "name": "Twinny Blogger Lite",
-  "short_name": "Twinny Lite",
-  "scope": "https://tokkoblogger.blogspot.com/",
-  "start_url": "https://tokkoblogger.blogspot.com/",
-  "display": "standalone",
-  "background_color": "#fff",
-  "theme_color": "#2B0C93",
-  "description": "Selamat Datang di Twinny Blogger - Jasa Pembuatan Toko Online Blogger",
-  "icons": [{
-    "src": "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-    "sizes": "48x48",
-    "type": "image/png"
-  }, {
-    "src": "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-    "sizes": "72x72",
-    "type": "image/png"
-  }, {
-    "src": "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-    "sizes": "96x96",
-    "type": "image/png"
-  }, {
-    "src": "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-    "sizes": "144x144",
-    "type": "image/png"
-  }, {
-    "src": "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-    "sizes": "168x168",
-    "type": "image/png"
-  }, {
-    "src": "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  }, {
-    "src": "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }]
-}
+addEventListener("fetch", event => {
+  const data = {
+    name: "Tokko Blogger",
+    short_name: "Tokki blogger",
+    display: "standalone",
+    prefer_related_applications: false,
+    start_url: ".",
+    scope: "\/",
+    background_color: "#fff",
+    theme_color: "#f89000",
+    description: "Membahas tutorial seputar blogging, blogger tutorial, blogspot tutorial, dan tools gratis.",
+    icons:[
+      {
+      src: "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+      sizes: "36x36",
+      type: "image\/png",
+      density: "0.75",
+      purpose: "any maskable"
+      },
+      {
+      src: "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+      sizes: "48x48",
+      type: "image\/png",
+      density: "1.0",
+      purpose: "any maskable"
+      },
+      {
+      src: "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+      sizes: "72x72",
+      type: "image\/png",
+      density: "1.5",
+      purpose: "any maskable"
+      },
+      {
+      src: "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+      sizes: "96x96",
+      type: "image\/png",
+      density: "2.0",
+      purpose: "any maskable"
+      },
+      {
+      src: "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+      sizes: "144x144",
+      type: "image\/png",
+      density: "3.0",
+      purpose: "any maskable"
+      },
+      {
+      src: "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+      sizes: "192x192",
+      type: "image\/png",
+      density: "4.0",
+      purpose: "any maskable"
+      },
+      {
+      src: "https://twinnybloggers.github.io/pwa.twinnyblogger/CmGbR9ZcPc9GwP68AmDFdi9RFNz75LtCvGtt6crP.png",
+      sizes: "512x512",
+      type: "image/png",
+      density: "4.0",
+      purpose: "any maskable"
+      },
+    ]
+  }
+
+  const json = JSON.stringify(data, null, 2)
+
+  return event.respondWith(
+    new Response(json, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8"
+      }
+    })
+  )
+})
+
+
