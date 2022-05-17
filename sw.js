@@ -1,16 +1,16 @@
 // Files to cache 
  const cacheName = 'twinnybloggers'; 
  const appShellFiles = [ 
-   '/twinnybloggers/pwa.twinnyblogger/', 
-   '/twinnybloggers/pwa.twinnyblogger/app.js', 
-   '/twinnybloggers/pwa.twinnyblogger/icons/icon-32.png', 
-   '/twinnybloggers/pwa.twinnyblogger/icons/icon-64.png', 
-   '/twinnybloggers/pwa.twinnyblogger/icon-96.png', 
-   '/twinnybloggers/pwa.twinnyblogger/icons/icon-128.png', 
-   '/twinnybloggers/pwa.twinnyblogger/icons/icon-168.png', 
-   '/twinnybloggers/pwa.twinnyblogger/icons/icon-192.png', 
-   '/twinnybloggers/pwa.twinnyblogger/icons/icon-256.png', 
-   '/twinnybloggers/pwa.twinnyblogger/icons/icon-512.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/app.js', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-32.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-64.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icon-96.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-128.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-168.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-192.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-256.png', 
+   'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-512.png', 
  ]; 
  const gamesImages = []; 
  for (let i = 0; i < games.length; i++) { 
