@@ -26,7 +26,7 @@
   
  // Registering Service Worker 
  if ('serviceWorker' in navigator) { 
-   navigator.serviceWorker.register('/twinnybloggers/pwa.twinnyblogger/sw.js'); 
+   navigator.serviceWorker.register('https://twinnybloggers.github.io/pwa.twinnyblogger/sw.js'); 
  } 
   
  // Requesting permission for Notifications after clicking on the button 
