@@ -1,7 +1,5 @@
 // Files to cache 
- const cacheName = 'twinnybloggers'; 
  const appShellFiles = [ 
-   'https://twinnybloggers.github.io/pwa.twinnyblogger/', 
    'https://twinnybloggers.github.io/pwa.twinnyblogger/app.js', 
    'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-32.png', 
    'https://twinnybloggers.github.io/pwa.twinnyblogger/icons/icon-64.png', 
